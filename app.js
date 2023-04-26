@@ -124,7 +124,7 @@ app.use((req, res, next) => {
 });
 
 // 3) ROUTES
-// app.use("/", viewRouter);
+app.use("/", incidentRouter);
 app.use("/api/v1/incidents", incidentRouter);
 // app.use("/api/v1/user", buyerRouter);
 // app.use("/api/v1/seller", sellerRouter);
