@@ -94,3 +94,5 @@ exports.getAll = (Model) =>
       },
     });
   });
+
+  
