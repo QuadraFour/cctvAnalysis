@@ -26,18 +26,6 @@ mongoose
 
 const port = process.env.PORT || 3000;
 const http = require("http").createServer(app);
-const io = require("socket.io")(http);
-io.on("connection", (socket) => {
-  socket.emit("hello", "world");
-  socket.on("join", (sock) => {
-    socket.join(sock.id);
-    // console.log(io.sockets.adapter.rooms);
-    // socket.emit("hello", "world");
-  });
-});
-exports.sendMsg = (id, bid, negoStage, name) => {
-  io.sockets.in(id).emit("wel", { bid, negoStage, name });
-};
 
 const server = http.listen(port, () => {
   console.log(`App running on port ${port}...`);
