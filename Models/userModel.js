@@ -20,22 +20,14 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "admin"],
       default: "user",
     },
-    camera_id:{
-      type: Number,
-      required:[true,"Please Enter Your Camera ID"],
-      unique:true
-    }
+    camera_id: {
+      type: String,
+      unique: true,
+    },
   },
   { collection: "users" }
 );
 
-// if email is not unqiue display error
-userSchema.post("save", function (error, doc, next) {
-  if (error.name === "MongoError" && error.code === 11000) {
-    next(new Error("Email must be unique"));
-  } else {
-    next();
-  }
-});
-const model=mongoose.models.User || mongoose.model("User", userSchema);
+
+const model = mongoose.models.User || mongoose.model("User", userSchema);
 module.exports = model;

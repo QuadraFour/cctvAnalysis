@@ -58,8 +58,6 @@ app.use((req, res, next) => {
 // 3) ROUTES
 app.use("/", incidentRouter);
 app.use("/api/v1/incidents", incidentRouter);
-app.use("/api/v1/login", userRouter);
-app.use("/api/v1/register", userRouter);
 app.use("/api/v1/users", userRouter);
 
 module.exports = app;
