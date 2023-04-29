@@ -20,6 +20,11 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "admin"],
       default: "user",
     },
+    camera_id:{
+      type: Number,
+      required:[true,"Please Enter Your Camera ID"],
+      unique:true
+    }
   },
   { collection: "users" }
 );

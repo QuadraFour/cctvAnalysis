@@ -1,4 +1,5 @@
 const User = require("../Models/userModel");
+const Incident = require("../Models/incidentModel");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const mongoose = require("mongoose");
@@ -39,6 +40,19 @@ exports.signup = catchAsync(async (req, res, next) => {
   }
 });
 
+exports.getIncidents=catchAsync(async(req,res,next)=>{
+    const user=await User.findById({
+      email:req.body.email
+    });
+    const incidents=await Incident.find({camera_id:user.camera_id});
+    res.status(200).json({
+        status:"success",
+        data:{
+            incidents
+        }
+    })
+});
+
 exports.login = catchAsync(async (req, res, next) => {
   const user = await User.findOne({
     email: req.body.email,
@@ -70,4 +84,5 @@ exports.login = catchAsync(async (req, res, next) => {
     return next(new AppError("Incorrect password", 401));
   }
 });
+
 

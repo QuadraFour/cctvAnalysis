@@ -6,5 +6,5 @@ const router=express.Router();
 router.route("/users").get(userController.getAllUsers);
 router.route("/signup").post(userController.signup);
 router.route("/login").post(userController.login);
-
+router.route("/users/getIncidents").get(userController.getIncidents);
 module.exports=router;

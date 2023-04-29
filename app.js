@@ -61,7 +61,6 @@ app.use("/", incidentRouter);
 app.use("/api/v1/incidents", incidentRouter);
 app.use("/api/v1/login", userRouter);
 app.use("/api/v1/register", userRouter);
-app.use("/api/v1/getallusers", userRouter);
-
+app.use("/api/v1/users/getIncidents", userRouter);
 
 module.exports = app;
