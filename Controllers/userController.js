@@ -41,10 +41,10 @@ exports.signup = catchAsync(async (req, res, next) => {
 });
 
 exports.getIncidents = catchAsync(async (req, res, next) => {
-  const user = await User.findById({
+  const user = await User.findOne({
     email: req.body.email,
   });
-  const incidents = await Incident.find({ camera_id: user.camera_id });
+  const incidents = await Incident.find({ cameraNo: user.camera_id });
   res.status(200).json({
     status: "success",
     data: {
