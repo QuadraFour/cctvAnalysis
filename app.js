@@ -22,7 +22,6 @@ app.use(cors());
 // Access-Control-Allow-Origin *
 app.options("*", cors());
 
-
 // Development logging
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
@@ -61,6 +60,6 @@ app.use("/", incidentRouter);
 app.use("/api/v1/incidents", incidentRouter);
 app.use("/api/v1/login", userRouter);
 app.use("/api/v1/register", userRouter);
-app.use("/api/v1/users/getIncidents", userRouter);
+app.use("/api/v1/users", userRouter);
 
 module.exports = app;
