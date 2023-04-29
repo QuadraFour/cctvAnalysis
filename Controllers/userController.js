@@ -19,7 +19,7 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 
 exports.signup = catchAsync(async (req, res, next) => {
   try {
-    const newPassword=await bcrypt.hash(req.body.password,10);
+    const newPassword = await bcrypt.hash(req.body.password, 10);
     const newUser = await User.create({
       name: req.body.name,
       email: req.body.email,
@@ -40,17 +40,17 @@ exports.signup = catchAsync(async (req, res, next) => {
   }
 });
 
-exports.getIncidents=catchAsync(async(req,res,next)=>{
-    const user=await User.findById({
-      email:req.body.email
-    });
-    const incidents=await Incident.find({camera_id:user.camera_id});
-    res.status(200).json({
-        status:"success",
-        data:{
-            incidents
-        }
-    })
+exports.getIncidents = catchAsync(async (req, res, next) => {
+  const user = await User.findById({
+    email: req.body.email,
+  });
+  const incidents = await Incident.find({ camera_id: user.camera_id });
+  res.status(200).json({
+    status: "success",
+    data: {
+      incidents,
+    },
+  });
 });
 
 exports.login = catchAsync(async (req, res, next) => {
@@ -58,14 +58,22 @@ exports.login = catchAsync(async (req, res, next) => {
     email: req.body.email,
   });
 
-  //if no user found send json error
-  if (!user) return res.status(400).json({status:"fail",message:"Incorrect password or email"});
+  //if  no user found send json error
+  if (!user)
+    return res
+      .status(400)
+      .json({ status: "fail", message: "Incorrect password or email" });
 
-  const isPasswordValid=await bcrypt.compare(req.body.password,user.password);
-
+  const isPasswordValid = await bcrypt.compare(
+    req.body.password,
+    user.password
+  );
 
   //if wrong password send json error
-  if(!isPasswordValid) return res.status(400).json({status:"fail",message:"Incorrect password or email"});
+  if (!isPasswordValid)
+    return res
+      .status(400)
+      .json({ status: "fail", message: "Incorrect password or email" });
 
   if (isPasswordValid) {
     const token = jwt.sign(
@@ -84,5 +92,3 @@ exports.login = catchAsync(async (req, res, next) => {
     return next(new AppError("Incorrect password", 401));
   }
 });
-
-
