@@ -19,11 +19,11 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 
 exports.signup = catchAsync(async (req, res, next) => {
   const { name, email, password, role, camera_id } = req.body;
- 
+
   const hashedPassword = await bcrypt.hash(password, 10);
 
   let newUser;
-  if (role === 'admin') {
+  if (role === "admin") {
     console.log(req.body);
     newUser = await User.create({
       name,
@@ -32,11 +32,11 @@ exports.signup = catchAsync(async (req, res, next) => {
       role,
       camera_id: null,
     });
-  } else if (role === 'user') {
+  } else if (role === "user") {
     if (!camera_id) {
       return res.status(400).json({
-        status: 'fail',
-        message: 'Camera ID is required for user role',
+        status: "fail",
+        message: "Camera ID is required for user role",
       });
     }
     newUser = await User.create({
@@ -49,19 +49,26 @@ exports.signup = catchAsync(async (req, res, next) => {
   }
 
   res.status(201).json({
-    status: 'success',
+    status: "success",
     data: {
       user: newUser.name,
     },
   });
 });
 
-
 exports.getIncidents = catchAsync(async (req, res, next) => {
   const user = await User.findOne({
     email: req.body.email,
   });
-  const incidents = await Incident.find({ cameraNo: user.camera_id });
+  let incidents = [];
+  if (user.role === "admin") {
+    incidents = await Incident.find();
+  } else {
+    for (let i = 0; i < user.camera_id.length; i++) {
+      // Loop through all camera_id
+      incidents.push(await Incident.find({ cameraId: user.camera_id[i] }));
+    }
+  }
   res.status(200).json({
     status: "success",
     data: {
