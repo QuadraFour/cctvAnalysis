@@ -105,6 +105,7 @@ exports.login = catchAsync(async (req, res, next) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        id: user._id,
       },
       "secret123"
     );

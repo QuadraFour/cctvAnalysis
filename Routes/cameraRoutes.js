@@ -11,4 +11,7 @@ router.route("/getCamera/:id").get(cameraController.getCamera);
 router
   .route("/remove/:id")
   .delete(cameraController.removeOwner, cameraController.deleteCamera);
+
+router.route("/user").get(cameraController.getCameraOfUser);
+
 module.exports = router;

@@ -33,6 +33,20 @@ exports.assignOwner = catchAsync(async (req, res, next) => {
   });
 });
 
+//get cameras of a user
+exports.getCameraOfUser = catchAsync(async (req, res, next) => {
+  const user_id = req.query.id;
+  const user = await User.findById(user_id);
+  const cameras = await Camera.find({ _id: { $in: user.camera_id } });
+  res.status(200).json({
+    status: "success",
+    data: {
+      cameras,
+    },
+  });
+});
+
+
 exports.removeOwner = catchAsync(async (req, res, next) => {
   const camera_id = req.params.id;
   const camera = await Camera.findById(camera_id);
