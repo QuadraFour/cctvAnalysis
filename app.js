@@ -10,6 +10,7 @@ const compression = require("compression");
 const cors = require("cors");
 const incidentRouter = require("./Routes/incidentRoutes");
 const userRouter = require("./Routes/userRoutes");
+const cameraRouter = require("./Routes/cameraRoutes");
 
 // Start express app
 const app = express();
@@ -59,5 +60,5 @@ app.use((req, res, next) => {
 app.use("/", incidentRouter);
 app.use("/api/v1/incidents", incidentRouter);
 app.use("/api/v1/users", userRouter);
-
+app.use("/api/v1/camera", cameraRouter);
 module.exports = app;

@@ -6,9 +6,10 @@ const incidentSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please Enter The Type of the Incident"],
     },
-    cameraNo: {
-      type: String,
-      required: [true, "Please Enter The Camera Number"],
+    cameraId: {
+      type: mongoose.Schema.ObjectId,
+      ref: "Camera",
+      required: [true, "Please Enter The Camera Id"],
     },
     locality: {
       type: String,

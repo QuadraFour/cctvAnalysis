@@ -20,14 +20,15 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "admin"],
       default: "user",
     },
-    camera_id: {
-      type: String,
-      unique: true,
-    },
+    camera_id: [
+      {
+        type: String,
+        default: [],
+      },
+    ],
   },
   { collection: "users" }
 );
-
 
 const model = mongoose.models.User || mongoose.model("User", userSchema);
 module.exports = model;
