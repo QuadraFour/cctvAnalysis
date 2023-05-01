@@ -14,4 +14,5 @@ router
 
 router.route("/user").get(cameraController.getCameraOfUser);
 
+
 module.exports = router;
